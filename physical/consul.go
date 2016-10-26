@@ -613,7 +613,7 @@ func (c *ConsulBackend) reconcileConsul(registeredServiceID string, activeFunc a
 		EnableTagOverride: false,
 	}
 
-	checkStatus := api.HealthCritical
+	checkStatus := api.HealthWarning
 	if !sealed {
 		checkStatus = api.HealthPassing
 	}
@@ -647,7 +647,7 @@ func (c *ConsulBackend) runCheck(sealed bool) error {
 	if !sealed {
 		return agent.PassTTL(c.checkID(), "Vault Unsealed")
 	} else {
-		return agent.FailTTL(c.checkID(), "Vault Sealed")
+		return agent.WarnTTL(c.checkID(), "Vault Sealed")
 	}
 }
 
